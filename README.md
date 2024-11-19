@@ -117,3 +117,27 @@ We're still using the older Bundler version here!
 Updating the `Dockerfile`'s `BUNDLER_VERSION` to `2.5.23` results in a clean build, without fetching from the remote.
 
 Please checkout the "final_state" branch.
+
+## Final state
+
+With the structure updated to the one expected by newer Bundler, and being sure we're running a newer Bundler, we can successfully build without fetching from the remote.
+It is interesting that leaving the `Gemfile.lock`'s `BUNDLED WITH` set to `2.5.10` didn't seem to matter, so long as we were running the later Bundler version (`2.5.23`).
+That is, we could also build with that set to the older version.
+
+For completeness, I also updated it via `bundle _2.5.23_ update --bunlder`.
+We can still successfully build with that as well.
+
+
+## Where does this leave us?
+
+The gnarly user experience of needing to re-build all `vendor/cache` for each Git-sourced Gem.
+That's pretty rough.
+
+And if you don't do that, then newer Bundler version (e.g., `2.5.23`) will still attempt to fetch Git-sourced Gems from the remote, even if they're already in `vendor/cache`.
+This feels like a bug to me.
+But 🤷…
+
+Should we go back to the old cache format?
+Maybe?
+
+But at the very least it seems we need a way for users to migrate the format cleanly, and with as little confusion as possible.
