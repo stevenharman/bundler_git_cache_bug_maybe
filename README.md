@@ -92,3 +92,28 @@ Instead of all of that, please check out the `new_structure` branch with those c
 ```console
 git switch new_structure
 ```
+
+### And now?
+
+Building the image fails for a different Git-looking reason.
+Though, this is expected (in hindsight):
+
+```log
+#11 [5/6] RUN gem install bundler -v 2.5.10 --no-document &&     bundle _2.5.10_ config set --local deployment "true" &&     bundle _2.5.10_ config set --local path "vendor/bundle" &&     bundle _2.5.10_ check || bundle _2.5.10_ install --local --retry=3 &&     bundle _2.5.10_ clean
+#11 0.603 Successfully installed bundler-2.5.10
+#11 0.603 1 gem installed
+#11 0.829 The following gems are missing
+#11 0.829  * puma (6.4.3)
+#11 0.829  * puma-plugin-telemetry (1.1.4)
+#11 0.829  * nio4r (2.7.4)
+#11 0.829 Install missing gems with `bundle install`
+#11 1.015 Could not find puma-plugin-telemetry-1.1.4 in
+#11 1.015 https://github.com/stevenharman/puma-plugin-telemetry.git (at
+#11 1.015 /usr/src/app/vendor/cache/puma-plugin-telemetry-d904b8429739@d904b84)
+#11 ERROR: process "/bin/sh -c gem install bundler -v ${BUNDLER_VERSION} --no-document &&     bundle _${BUNDLER_VERSION}_ config set --local deployment \"true\" &&     bundle _${BUNDLER_VERSION}_ config set --local path \"vendor/bundle\" &&     bundle _${BUNDLER_VERSION}_ check || bundle _${BUNDLER_VERSION}_ install --local --retry=3 &&     bundle _${BUNDLER_VERSION}_ clean" did not complete successfully: exit code: 7
+```
+
+We're still using the older Bundler version here!
+Updating the `Dockerfile`'s `BUNDLER_VERSION` to `2.5.23` results in a clean build, without fetching from the remote.
+
+Please checkout the "final_state" branch.
