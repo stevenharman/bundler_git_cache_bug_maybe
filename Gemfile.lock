@@ -1,0 +1,29 @@
+GIT
+  remote: https://github.com/stevenharman/puma-plugin-telemetry.git
+  revision: d904b84297394e2fd37db15ba58253b473858d32
+  branch: add_log_target_and_l2met_transform
+  specs:
+    puma-plugin-telemetry (1.1.4)
+      puma (< 7)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    nio4r (2.7.4)
+    puma (6.4.3)
+      nio4r (~> 2.0)
+
+PLATFORMS
+  arm64-darwin-23
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  puma
+  puma-plugin-telemetry!
+
+RUBY VERSION
+   ruby 3.3.6p108
+
+BUNDLED WITH
+   2.5.10

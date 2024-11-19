@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "puma"
+require "puma/plugin/telemetry"
+
+puts "Hello, Puma Plugin Telemetry, v#{Puma::Plugin::Telemetry::VERSION}"
